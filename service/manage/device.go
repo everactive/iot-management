@@ -76,10 +76,22 @@ func (srv *Management) DeviceLogs(orgID, username string, role int, deviceID str
 	hasAccess := srv.DB.OrgUserAccess(orgID, username, role)
 	if !hasAccess {
 		return web.StandardResponse{
-			Code:    "SnapAuth",
+			Code:    "DeviceAuth",
 			Message: "the user does not have permissions for the organization",
 		}
 	}
 
 	return srv.TwinAPI.DeviceLogs(orgID, deviceID, body)
+}
+
+func (srv *Management) DeviceUsersAction(orgID, username string, role int, deviceID string, body []byte) web.StandardResponse {
+	hasAccess := srv.DB.OrgUserAccess(orgID, username, role)
+	if !hasAccess {
+		return web.StandardResponse{
+			Code:    "DeviceAuth",
+			Message: "the user does not have permissions for the organization",
+		}
+	}
+
+	return srv.TwinAPI.DeviceUsersAction(orgID, deviceID, body)
 }

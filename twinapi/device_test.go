@@ -132,3 +132,38 @@ func TestClientAdapter_DeviceLogs(t *testing.T) {
 		})
 	}
 }
+
+func TestClientAdapter_DeviceUsersAction(t *testing.T) {
+	b1 := `{"email":"testemailstring", "force-managed":true, "action":"create"}`
+	type fields struct {
+		URL string
+	}
+	type args struct {
+		orgID    string
+		deviceID string
+		body     string
+		data     []byte
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr string
+	}{
+		{"valid", fields{""}, args{"abc", "a111", b1, []byte("{}")}, ""},
+		{"invalid-org", fields{""}, args{"invalid", "a111", b1, []byte("{}")}, "MOCK error post"},
+		{"invalid-body", fields{""}, args{"abc", "a111", "", []byte("{}")}, "EOF"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockHTTP(tt.args.body)
+			a := &ClientAdapter{
+				URL: tt.fields.URL,
+			}
+			got := a.DeviceUsersAction(tt.args.orgID, tt.args.deviceID, tt.args.data)
+			if got.Message != tt.wantErr {
+				t.Errorf("ClientAdapter.DeviceUsersAction() = %v, want %v", got.Message, tt.wantErr)
+			}
+		})
+	}
+}

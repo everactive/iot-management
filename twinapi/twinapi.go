@@ -34,6 +34,7 @@ type Client interface {
 	DeviceGet(orgID, deviceID string) web.DeviceResponse
 	DeviceDelete(orgID, deviceID string) web.StandardResponse
 	DeviceLogs(orgID, deviceID string, body []byte) web.StandardResponse
+	DeviceUsersAction(orgID, deviceID string, body []byte) web.StandardResponse
 	ActionList(orgID, deviceID string) web.ActionsResponse
 	SnapList(orgID, deviceID string) web.SnapsResponse
 
@@ -94,6 +95,15 @@ var put = func(p string, data []byte) (*http.Response, error) {
 var delete = func(p string) (*http.Response, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest(http.MethodDelete, p, nil)
+	if err != nil {
+		return nil, err
+	}
+	return client.Do(req)
+}
+
+var deleteWithBody = func(p string, data []byte) (*http.Response, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest(http.MethodDelete, p, bytes.NewReader(data))
 	if err != nil {
 		return nil, err
 	}

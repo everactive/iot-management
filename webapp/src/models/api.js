@@ -176,6 +176,10 @@ var service = {
         return axios.post(constants.baseUrl + account + '/devices/' + id + '/logs', settings);
     },
 
+    deviceUsersAction: (account, id, settings, cancelCallback) => {
+        return axios.post(constants.baseUrl + account + '/devices/' + id + '/users', settings);
+    },
+
     usersList: (query, cancelCallback) => {
         return axios.get(constants.baseUrl + 'users');
     },

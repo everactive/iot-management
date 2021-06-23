@@ -21,6 +21,7 @@ package twinapi
 
 import (
 	"encoding/json"
+	"net/http"
 	"path"
 
 	"github.com/everactive/iot-devicetwin/web"
@@ -97,6 +98,56 @@ func (a *ClientAdapter) DeviceLogs(orgID, deviceID string, body []byte) web.Stan
 	err = json.NewDecoder(resp.Body).Decode(&r)
 	if err != nil {
 		r.Code = "DeviceLogs"
+		r.Message = err.Error()
+		return r
+	}
+
+	return r
+}
+
+type DeviceUser struct {
+	Action       string `json:"action,omitempty"`
+	Email        string `json:"email,omitempty"`
+	ForceManaged bool   `json:"force-managed,omitempty"`
+	Sudoer       bool   `json:"sudoer,omitempty"`
+	Username     string `json:"username,omitempty"`
+}
+
+func (a *ClientAdapter) DeviceUsersAction(orgID, deviceID string, body []byte) web.StandardResponse {
+	r := web.StandardResponse{}
+	p := path.Join("device", orgID, deviceID, "users")
+	d := DeviceUser{}
+	var err error
+	var resp *http.Response
+
+	err = json.Unmarshal(body, &d)
+
+	if err != nil {
+		r.Code = "DeviceUser"
+		r.Message = err.Error()
+		return r
+	}
+
+	switch d.Action {
+	case "create":
+		resp, err = post(a.urlPath(p), body)
+		if err != nil {
+			r.Code = "DeviceUser"
+			r.Message = err.Error()
+			return r
+		}
+	case "remove":
+		resp, err = deleteWithBody(a.urlPath(p), body)
+		if err != nil {
+			r.Code = "DeviceUser"
+			r.Message = err.Error()
+			return r
+		}
+	}
+
+	err = json.NewDecoder(resp.Body).Decode(&r)
+	if err != nil {
+		r.Code = "DeviceUser"
 		r.Message = err.Error()
 		return r
 	}
