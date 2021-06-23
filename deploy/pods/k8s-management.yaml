@@ -70,6 +70,8 @@ spec:
               value: "http://devicetwin:8040/v1/"
             - name: STOREURL
               value: "https://api.snapcraft.io/api/v1/"
+            - name: LOG_FORMAT
+              value: "json"
           ports:
             - containerPort: 8010
 ---

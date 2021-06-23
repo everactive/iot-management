@@ -7,10 +7,10 @@ github.com/dgrijalva/jwt-go v3.2.1-0.20180921172315-3af4c746e1c2+incompatible/go
 github.com/eclipse/paho.mqtt.golang v1.1.2-0.20190404092346-54767d4b4811/go.mod h1:H9keYFcgq3Qr5OUJm/JZI/i6U7joQ8SYLhZwfeOo6Ts=
 github.com/eclipse/paho.mqtt.golang v1.2.0 h1:1F8mhG9+aO5/xpdtFkW4SxOJB67ukuDC3t2y2qayIX0=
 github.com/eclipse/paho.mqtt.golang v1.2.0/go.mod h1:H9keYFcgq3Qr5OUJm/JZI/i6U7joQ8SYLhZwfeOo6Ts=
-github.com/everactive/iot-devicetwin v0.0.0-20210526135644-b2e6baff192a h1:9eEPKVkrcM5Bxt865uMFINTE/PJC0M6r74nm+7vrFG4=
-github.com/everactive/iot-devicetwin v0.0.0-20210526135644-b2e6baff192a/go.mod h1:G/Gf2ImKnk44vk1CJ4cyH5I90FzhgDodcTZr+kkm560=
-github.com/everactive/iot-identity v0.0.0-20210511140930-c3974b940031 h1:dxQ+fw+NI3HD8INZY48/JcCTRI2K1Gnxm/vDi0uG7Vo=
-github.com/everactive/iot-identity v0.0.0-20210511140930-c3974b940031/go.mod h1:YEl7EPnm6egK1fhdXfR5t73stmZG637/cbHvzARPUAI=
+github.com/everactive/iot-devicetwin v0.0.0-20210623175431-d65e56c929f8 h1:hM8F0bZmUh7TOx9KQyOA2m+ESHw8zFv2r8Y9C6xApME=
+github.com/everactive/iot-devicetwin v0.0.0-20210623175431-d65e56c929f8/go.mod h1:USd2ZadUlM4M/xtA9WSCjr9g2LT83w9qIOVeAfoszIA=
+github.com/everactive/iot-identity v0.0.0-20210623143750-560de0ed146c h1:ZcqoMm91tBh5srA0TdZa071PIgbfz4opmZQlGMfMVJM=
+github.com/everactive/iot-identity v0.0.0-20210623143750-560de0ed146c/go.mod h1:f2I0dYjJnMD1kcwwBrzzCKZqs3LDK/OWFtZjQQ5sEI4=
 github.com/frankban/quicktest v1.0.0/go.mod h1:R98jIehRai+d1/3Hv2//jOVCTJhW1VBavT6B6CuGq2k=
 github.com/frankban/quicktest v1.1.0/go.mod h1:R98jIehRai+d1/3Hv2//jOVCTJhW1VBavT6B6CuGq2k=
 github.com/frankban/quicktest v1.2.2 h1:xfmOhhoH5fGPgbEAlhLpJH9p0z/0Qizio9osmvn9IUY=
@@ -25,8 +25,6 @@ github.com/gorilla/context v1.1.2-0.20181012153548-51ce91d2eadd h1:vA7UsYUp6kOBv
 github.com/gorilla/context v1.1.2-0.20181012153548-51ce91d2eadd/go.mod h1:kBGZzfjB9CEq2AlWe17Uuf7NDRt0dE0s8S51q0aT7Yg=
 github.com/gorilla/csrf v1.5.2-0.20181210000252-d1620373958b h1:1MwgZ/lS1XE/SKLlG0p83sNjTyQipM2QRpe3LZhhPjQ=
 github.com/gorilla/csrf v1.5.2-0.20181210000252-d1620373958b/go.mod h1:HTDW7xFOO1aHddQUmghe9/2zTvg7AYCnRCs7MxTGu/0=
-github.com/gorilla/mux v0.0.0-20190316133243-c5c6c98bc253/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
-github.com/gorilla/mux v1.7.1/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
 github.com/gorilla/mux v1.7.4 h1:VuZ8uybHlWmqV03+zRzdwKL4tUnIp1MAQtp1mIFE1bc=
 github.com/gorilla/mux v1.7.4/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
@@ -63,7 +61,6 @@ github.com/snapcore/go-gettext v0.0.0-20201130093759-38740d1bd3d2/go.mod h1:D3Ss
 github.com/snapcore/snapd v0.0.0-20201112173412-54f2ed2c0872 h1:2Zq7iiUjkftvG4yKFZoNDo/VguGYarO8lpwwWze29rE=
 github.com/snapcore/snapd v0.0.0-20201112173412-54f2ed2c0872/go.mod h1:3xrn7QDDKymcE5VO2rgWEQ5ZAUGb9htfwlXnoel6Io8=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
-github.com/stretchr/testify v0.0.0-20190311161405-34c6fa2dc709/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.1-0.20190311161405-34c6fa2dc709 h1:Ko2LQMrRU+Oy/+EDBwX7eZ2jp3C47eDBB8EIhKTun+I=
 github.com/stretchr/testify v1.3.1-0.20190311161405-34c6fa2dc709/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=

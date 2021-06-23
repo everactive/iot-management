@@ -130,3 +130,32 @@ func (wb Service) DeviceLogsHandler(w http.ResponseWriter, r *http.Request) {
 	response := wb.Manage.DeviceLogs(vars["orgid"], user.Username, user.Role, vars["deviceid"], body)
 	_ = encodeResponse(response, w)
 }
+
+// DeviceUsersActionHandler is the API method to create a user for a device
+func (wb Service) DeviceUsersActionHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", JSONHeader)
+	user, err := wb.checkIsAdminAndGetUserFromJWT(w, r)
+	if err != nil {
+		formatStandardResponse("UserAuth", "", w)
+		return
+	}
+
+	body, err := ioutil.ReadAll(r.Body)
+
+	if err != nil {
+		formatStandardResponse("DeviceUsersAction", err.Error(), w)
+		return
+	}
+
+	if len(body) == 0 {
+		body = []byte("{}")
+	}
+
+	defer r.Body.Close()
+
+	vars := mux.Vars(r)
+
+	// Get the device
+	response := wb.Manage.DeviceUsersAction(vars["orgid"], user.Username, user.Role, vars["deviceid"], body)
+	_ = encodeResponse(response, w)
+}

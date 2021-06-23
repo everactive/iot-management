@@ -5,8 +5,8 @@ go 1.16
 require (
 	github.com/dgrijalva/jwt-go v3.2.1-0.20180921172315-3af4c746e1c2+incompatible
 	github.com/eclipse/paho.mqtt.golang v1.2.0 // indirect
-	github.com/everactive/iot-devicetwin v0.0.0-20210526135644-b2e6baff192a
-	github.com/everactive/iot-identity v0.0.0-20210511140930-c3974b940031
+	github.com/everactive/iot-devicetwin v0.0.0-20210623175431-d65e56c929f8
+	github.com/everactive/iot-identity v0.0.0-20210623143750-560de0ed146c
 	github.com/gorilla/context v1.1.2-0.20181012153548-51ce91d2eadd // indirect
 	github.com/gorilla/csrf v1.5.2-0.20181210000252-d1620373958b
 	github.com/gorilla/mux v1.7.4

@@ -20,8 +20,18 @@ import moment from 'moment';
 import AlertBox from './AlertBox';
 import If from './If';
 import {T} from './Utils';
+import api from '../models/api';
+
 
 class Device extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            userTo: null,
+            users: []
+        }
+    }
 
     renderActions() {
         if ((!this.props.actions) || (this.props.actions.length===0)) {
@@ -56,20 +66,111 @@ class Device extends Component {
         )
     }
 
+    handleShowAddSshUser = (e) => {
+        e.preventDefault();
+        api.usersList().then(response => {
+            this.setState({users: response.data.users})
+        })
+        this.setState({sshDialog: true})
+    }
+
+    handleUserChange = (e) => {
+        e.preventDefault();
+        this.setState({userTo: e.target.value})
+    }
+    handleSshUserAdd = (e) => {
+        e.preventDefault();
+        if (!this.state.userTo) {
+            return
+        }
+        var u = this.state.users[this.state.userTo]
+        var d = this.props.client.device
+        var settings = {
+            "action": "create",
+            "email": u.email,
+            "username": u.username,
+            "sudoer": true,
+            "force-managed": true,
+        }
+        api.deviceUsersAction(d.orgId, d.deviceId, JSON.stringify(settings)).then(response => {
+            this.setState({message: "Sent request to add ssh user " + u.username})
+            this.setState({sshDialog: null})
+        });
+    }
+
+    handleSshUserRemove = (e) => {
+        e.preventDefault();
+        if (!this.state.userTo) {
+            return
+        }
+        var u = this.state.users[this.state.userTo]
+        var d = this.props.client.device
+        var settings = {
+            "action": "remove",
+            "username": u.username
+        }
+        api.deviceUsersAction(d.orgId, d.deviceId, JSON.stringify(settings)).then(response => {
+            this.setState({message: "Sent request to remove ssh user " + u.username})
+            this.setState({sshDialog: null})
+        });
+    }
+
+
+    handleSshUserCancel = (e) => {
+        e.preventDefault();
+        this.setState({sshDialog: null})
+    }
+
     render () {
         var d = this.props.client;
         if (!d.device) {return <div>Loading...</div>};
 
         return (
             <div className="row">
-                <h1 className="tight">{d.device.brand} {d.device.model}</h1>
-                <h4 className="subtitle">{d.device.serial}</h4>
-
+                <section>
+                    <div>
+                        <h1 className="tight">{d.device.brand} {d.device.model}
+                        </h1>
+                        <h4 className="subtitle">{d.device.serial}</h4>
+                    </div>
+                </section>
                 <section className="row spacer">
                     <div className="col-12">
                         <AlertBox message={this.props.message} />
+                        <AlertBox message={this.state.message} type="information"/>
                     </div>
                 </section>
+                <section className="row spacer">
+                <div>
+                    <button className="p-button--neutral small u-float" title={T('Edit SSH User')} onClick={this.handleShowAddSshUser}>
+                        <i className="fa fa-user" aria-hidden="true"/>
+                    </button>
+                </div>
+                </section>
+
+                <If cond={this.state.sshDialog}>
+                <section className="row spacer">
+                    <div className="p-card">
+                        <h3 className="p-card__title">{T('SSH User Add')}</h3>
+                        <form>
+                            <fieldset>
+                                <label>
+                                    {T('Add SSH User')}
+                                    <select value={this.state.userTo} id="userId" onChange={this.handleUserChange}>
+                                        <option></option>
+                                        {this.state.users.map((u, i) => {
+                                            return <option key={u.id} value={i}>{u.username}: {u.email}</option>
+                                        })}                                     
+                                    </select>
+                                </label>
+                            </fieldset>
+                            <button className="p-button--brand" onClick={this.handleSshUserAdd}>{T('Add')}</button>
+                            <button className="p-button--brand" onClick={this.handleSshUserRemove}>{T('Remove')}</button>
+                            <button className="p-button--brand" onClick={this.handleSshUserCancel}>{T('cancel')}</button>
+                        </form>
+                    </div>
+                </section>
+                </If>
 
                 <If cond={!this.props.message}>
                     <section className="row spacer">

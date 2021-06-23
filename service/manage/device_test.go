@@ -115,7 +115,7 @@ func TestManagement_DeviceLogs(t *testing.T) {
 		wantErr string
 	}{
 		{"valid-enable", args{"abc", "jamesj", 300, "a111", []byte("{}")}, ""},
-		{"invalid-user", args{"abc", "invalid", 200, "a111", []byte("{}")}, "SnapAuth"},
+		{"invalid-user", args{"abc", "invalid", 200, "a111", []byte("{}")}, "SnapADeviceAuthuth"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -124,9 +124,40 @@ func TestManagement_DeviceLogs(t *testing.T) {
 				DB:       memory.NewStore(),
 				TwinAPI:  twinapi.NewMockClient(""),
 			}
-			got := srv.DeviceLogs(tt.args.orgID, tt.args.username, tt.args.role, tt.args.deviceID, tt.args.snap, tt.args.body)
+			got := srv.DeviceLogs(tt.args.orgID, tt.args.username, tt.args.role, tt.args.deviceID, tt.args.body)
 			if got.Code != tt.wantErr {
 				t.Errorf("Management.DeviceLogs() = %v, want %v", got.Code, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestManagement_DeviceUsersAction(t *testing.T) {
+	type args struct {
+		orgID    string
+		username string
+		role     int
+		deviceID string
+		body     []byte
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr string
+	}{
+		{"valid-enable", args{"abc", "jamesj", 300, "a111", []byte("{}")}, ""},
+		{"invalid-user", args{"abc", "invalid", 200, "a111", []byte("{}")}, "DeviceAuth"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			srv := &Management{
+				Settings: getSettings(),
+				DB:       memory.NewStore(),
+				TwinAPI:  twinapi.NewMockClient(""),
+			}
+			got := srv.DeviceUsersAction(tt.args.orgID, tt.args.username, tt.args.role, tt.args.deviceID, tt.args.body)
+			if got.Code != tt.wantErr {
+				t.Errorf("Management.DeviceUsersAction() = %v, want %v", got.Code, tt.wantErr)
 			}
 		})
 	}

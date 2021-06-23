@@ -197,3 +197,8 @@ func (m *MockClient) SnapSnapshot(orgID, deviceID, snap, body []byte) web.Standa
 func (m *MockClient) DeviceLogs(orgID, deviceID, body []byte) web.StandardResponse {
 	return web.StandardResponse{}
 }
+
+// DeviceUsersAction mocks a device create user request
+func (m *MockClient) DeviceUsersAction(orgID, deviceID, body []byte) web.StandardResponse {
+	return web.StandardResponse{}
+}

@@ -106,6 +106,9 @@ func TestService_Workflow(t *testing.T) {
 		{"send-logs-valid", "POST", "/v1/device/abc/a111/logs", []byte("{}"), 300, http.StatusOK, ""},
 		{"send-logs-invalid-permissions", "POST", "/v1/device/abc/a111/logs", []byte("{}"), 0, http.StatusBadRequest, "UserAuth"},
 		{"send-logs-valid-empty", "POST", "/v1/device/abc/a111/logs", nil, 300, http.StatusBadRequest, ""},
+		{"send-user-create-valid", "POST", "/v1/device/abc/a111/users", []byte("{}"), 300, http.StatusOK, ""},
+		{"send-users-create-invalid-permissions", "POST", "/v1/device/abc/a111/users", []byte("{}"), 0, http.StatusBadRequest, "UserAuth"},
+		{"send-users-create-valid-empty", "POST", "/v1/device/abc/a111/users", nil, 300, http.StatusBadRequest, ""},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
